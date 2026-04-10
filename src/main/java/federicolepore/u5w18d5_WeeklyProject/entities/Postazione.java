@@ -25,19 +25,20 @@ public class Postazione {
     @Column(nullable = false)
     private String descrizione;
     @Column(name = "tipo_postazione", nullable = false)
+    @Enumerated(EnumType.STRING)
     private TipoPostazione tipoPostazione;
     @Column(name = "posti_massimi", nullable = false)
     private int numMax;
 
     @ManyToOne
     @JoinColumn(name = "edificio_id", nullable = false)
-    private Edificio edificioID;
+    private Edificio edificio;
 
-    public Postazione(String descrizione, TipoPostazione tipoPostazione, int numMax, Edificio edificioID) {
+    public Postazione(String descrizione, TipoPostazione tipoPostazione, int numMax, Edificio edificio) {
         this.descrizione = descrizione;
         this.tipoPostazione = tipoPostazione;
         this.numMax = numMax;
-        this.edificioID = edificioID;
+        this.edificio = edificio;
     }
 
     @Override
@@ -47,9 +48,9 @@ public class Postazione {
                 ", descrizione='" + descrizione + '\'' +
                 ", tipoPostazione=" + tipoPostazione +
                 ", numMax=" + numMax +
-                ", edificioID=" + edificioID +
+                ", edificio=" + edificio +
                 '}';
     }
 
-    
+
 }
