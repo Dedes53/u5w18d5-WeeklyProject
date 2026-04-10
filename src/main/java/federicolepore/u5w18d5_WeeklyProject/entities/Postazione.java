@@ -29,6 +29,8 @@ public class Postazione {
     private TipoPostazione tipoPostazione;
     @Column(name = "posti_massimi", nullable = false)
     private int numMax;
+    @Column(name = "posti_occupati", nullable = false)
+    private int num;
 
     @ManyToOne
     @JoinColumn(name = "edificio_id", nullable = false)
