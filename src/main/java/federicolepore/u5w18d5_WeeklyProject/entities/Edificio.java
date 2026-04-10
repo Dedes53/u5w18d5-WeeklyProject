@@ -11,13 +11,13 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-// Lombok
-@Getter
+//Lombok
 @Setter
+@Getter
 @NoArgsConstructor
 
 @Entity
-public class Utente {
+public class Edificio {
 
     @Id
     @GeneratedValue
@@ -25,29 +25,25 @@ public class Utente {
     private UUID id;
 
     @Column(nullable = false)
-    private String username;
+    private String nome;
     @Column(nullable = false)
-    private String name;
+    private String indirizzo;
     @Column(nullable = false)
-    private String surname;
-    @Column(nullable = false)
-    private String email;
+    private String citta;
 
-    public Utente(String username, String name, String surname, String email) {
-        this.username = username;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
+    public Edificio(String nome, String indirizzo, String citta) {
+        this.nome = nome;
+        this.indirizzo = indirizzo;
+        this.citta = citta;
     }
 
     @Override
     public String toString() {
-        return "Utente{" +
+        return "Edificio{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", indirizzo='" + indirizzo + '\'' +
+                ", citta='" + citta + '\'' +
                 '}';
     }
 
