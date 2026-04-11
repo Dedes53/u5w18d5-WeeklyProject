@@ -57,19 +57,19 @@ public class Runner implements CommandLineRunner {
         // adesso ciclando la lista degli edifici per ognuno di questi creo tre postazioni, ua per tipo
         for (int i = 0; i < edifici.size(); i++) {
             Postazione p1 = new Postazione(
-                    "Postazione di lavoro privata per lavorare senza disturbi",
+                    "postazione PRIVATA dell'edificio " + edifici.get(i).getNome(),
                     TipoPostazione.PRIVATO,
                     1,
                     edifici.get(i)
             );
             Postazione p2 = new Postazione(
-                    "Postazione di lavoro in ambiente condiviso per condividere idee e ispirazione",
+                    "postazione OPEN SPACE dell'edificio " + edifici.get(i).getNome(),
                     TipoPostazione.OPEN_SPACE,
                     10,
                     edifici.get(i)
             );
             Postazione p3 = new Postazione(
-                    "Sala riunioni super attrezzata per connetterti con colleghi e clienti da tutto il mondo come se fossero insieme a te ",
+                    "postazione SALA RIUNIONI dell'edificio " + edifici.get(i).getNome(),
                     TipoPostazione.SALA_RIUNIONI,
                     25,
                     edifici.get(i)

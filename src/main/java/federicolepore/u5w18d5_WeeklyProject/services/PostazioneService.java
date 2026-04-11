@@ -18,4 +18,8 @@ public class PostazioneService {
     public Postazione save(Postazione postazione) {
         return postazioneRepository.save(postazione);
     }
+
+    // metodo epr controllare numero di occupanti ed in caso incrementare validando la prenotazione
+
+
 }

@@ -8,4 +8,6 @@ import java.util.UUID;
 
 @Repository
 public interface PrenotazioneRepository extends JpaRepository<Prenotazione, UUID> {
+
+
 }
