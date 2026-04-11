@@ -133,5 +133,22 @@ public class Runner implements CommandLineRunner {
         }
 
 
+        //        liste di tutte le postazioni e prenotazioni
+        // con il log non mi prende il toString della entity
+        System.out.println("Liste di tutte le prenotazioni e postazioni ");
+        postazioneService.findAll().forEach(System.out::println);
+        prenotazioneService.findAll().forEach(System.out::println);
+
+        //        prenotazioni per utente
+        Utente u = utenti.getFirst();
+        System.out.println("Lista prenotazioni di utente " + u.getName() + ' ' + u.getSurname());
+        prenotazioneService.findByUtente(u).forEach(System.out::println);
+
+        //        ricerca delle postazioni: per tipo, per città e per entrambi
+        System.out.println("Ricerca delle postazioni filtrate per tipo, città ed entrambe");
+        postazioneService.findByTipoAndCitta(TipoPostazione.OPEN_SPACE, edifici.getFirst().getCitta()).forEach(System.out::println);
+        postazioneService.findByTipo(TipoPostazione.SALA_RIUNIONI).forEach(System.out::println);
+        postazioneService.findByCitta(edifici.get(4).getCitta()).forEach(System.out::println);
+
     }
 }

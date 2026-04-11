@@ -7,6 +7,7 @@ import federicolepore.u5w18d5_WeeklyProject.repositories.PrenotazioneRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class PrenotazioneService {
@@ -21,6 +22,9 @@ public class PrenotazioneService {
         return prenotazioneRepository.save(prenotazione);
     }
 
+    public List<Prenotazione> findAll() {
+        return prenotazioneRepository.findAll();
+    }
 
     public Prenotazione prenota(Utente u, Postazione p, LocalDate giorno) {
 
@@ -40,6 +44,11 @@ public class PrenotazioneService {
         // se pasa tutti e edue i controlli allora la salvo
         Prenotazione prenotazione = new Prenotazione(p, u, giorno);
         return prenotazioneRepository.save(prenotazione);
+
+    }
+
+    public List<Prenotazione> findByUtente(Utente utente) {
+        return prenotazioneRepository.findByUtente(utente);
     }
 
 }

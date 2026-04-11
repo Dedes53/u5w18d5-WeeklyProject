@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -18,5 +19,6 @@ public interface PrenotazioneRepository extends JpaRepository<Prenotazione, UUID
     // devo verificare che un uttente non abbia già una prenotazione per un dato giorno (limite 1/giorno)
     boolean existsByUtenteAndGiorno(Utente utente, LocalDate giorno);
 
+    List<Prenotazione> findByUtente(Utente utente);
 
 }
