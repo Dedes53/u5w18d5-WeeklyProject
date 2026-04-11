@@ -5,6 +5,8 @@ import federicolepore.u5w18d5_WeeklyProject.repositories.PostazioneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostazioneService {
 
@@ -19,6 +21,11 @@ public class PostazioneService {
         return postazioneRepository.save(postazione);
     }
 
+    public List<Postazione> findAll() {
+        return postazioneRepository.findAll();
+    }
+
+    
     // metodo epr controllare numero di occupanti ed in caso incrementare validando la prenotazione
 
 

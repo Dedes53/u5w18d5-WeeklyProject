@@ -3,6 +3,7 @@ package federicolepore.u5w18d5_WeeklyProject.runners;
 import com.github.javafaker.Faker;
 import federicolepore.u5w18d5_WeeklyProject.entities.Edificio;
 import federicolepore.u5w18d5_WeeklyProject.entities.Postazione;
+import federicolepore.u5w18d5_WeeklyProject.entities.Prenotazione;
 import federicolepore.u5w18d5_WeeklyProject.entities.Utente;
 import federicolepore.u5w18d5_WeeklyProject.enumerators.TipoPostazione;
 import federicolepore.u5w18d5_WeeklyProject.services.EdificioService;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +44,8 @@ public class Runner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        // creo gli edifici e li aggiungo in una lista
+        // CREO LE ISTANZE DI PROVA CHE MI SERVONO: EDIFICI, POSTAZIONI E UTENTI
+
         List<Edificio> edifici = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Edificio e = new Edificio(
@@ -54,7 +57,7 @@ public class Runner implements CommandLineRunner {
             System.out.println(e);
         }
 
-        // adesso ciclando la lista degli edifici per ognuno di questi creo tre postazioni, ua per tipo
+
         for (int i = 0; i < edifici.size(); i++) {
             Postazione p1 = new Postazione(
                     "postazione PRIVATA dell'edificio " + edifici.get(i).getNome(),
@@ -82,7 +85,7 @@ public class Runner implements CommandLineRunner {
             System.out.println(p3);
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 15; i++) {
             Utente u = new Utente(
                     faker.name().username(),
                     faker.name().firstName(),
@@ -92,6 +95,43 @@ public class Runner implements CommandLineRunner {
             utenteService.save(u);
             System.out.println(u);
         }
+
+
+        List<Utente> utenti = utenteService.findAll();
+        List<Postazione> postazioni = postazioneService.findAll();
+
+        for (int i = 0; i < 15; i++) {
+            try {
+                Prenotazione p = prenotazioneService.prenota(
+                        utenti.get(i),
+                        postazioni.get(i),
+                        LocalDate.now().plusDays(i)
+                );
+                log.info("Prenotazione creata " + p);
+            } catch (RuntimeException e) {
+                log.error(e.getMessage());
+            }
+        }
+
+
+        // test per prenotazioni che non vanno abuon fine
+        try {
+            //utente stesso giorno
+            prenotazioneService.prenota(utenti.get(0), postazioni.get(5), LocalDate.now());
+            log.info("Test prova utente stesso giorno fallito");
+
+        } catch (RuntimeException e) {
+            log.error(e.getMessage());
+        }
+
+        try {
+            //postazione già piena
+            prenotazioneService.prenota(utenti.get(5), postazioni.get(0), LocalDate.now());
+            log.info("Test prova postazione già piena fallito");
+        } catch (RuntimeException e) {
+            log.error(e.getMessage());
+        }
+
 
     }
 }
