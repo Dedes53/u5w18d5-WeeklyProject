@@ -6,6 +6,8 @@ import federicolepore.u5w18d5_WeeklyProject.entities.Postazione;
 import federicolepore.u5w18d5_WeeklyProject.entities.Prenotazione;
 import federicolepore.u5w18d5_WeeklyProject.entities.Utente;
 import federicolepore.u5w18d5_WeeklyProject.enumerators.TipoPostazione;
+import federicolepore.u5w18d5_WeeklyProject.exceptions.PostazionePienaException;
+import federicolepore.u5w18d5_WeeklyProject.exceptions.PrenotazioneDuplicataException;
 import federicolepore.u5w18d5_WeeklyProject.services.EdificioService;
 import federicolepore.u5w18d5_WeeklyProject.services.PostazioneService;
 import federicolepore.u5w18d5_WeeklyProject.services.PrenotazioneService;
@@ -120,7 +122,7 @@ public class Runner implements CommandLineRunner {
             prenotazioneService.prenota(utenti.get(0), postazioni.get(5), LocalDate.now());
             log.info("Test prova utente stesso giorno fallito");
 
-        } catch (RuntimeException e) {
+        } catch (PrenotazioneDuplicataException e) {
             log.error(e.getMessage());
         }
 
@@ -128,7 +130,7 @@ public class Runner implements CommandLineRunner {
             //postazione già piena
             prenotazioneService.prenota(utenti.get(5), postazioni.get(0), LocalDate.now());
             log.info("Test prova postazione già piena fallito");
-        } catch (RuntimeException e) {
+        } catch (PostazionePienaException e) {
             log.error(e.getMessage());
         }
 
